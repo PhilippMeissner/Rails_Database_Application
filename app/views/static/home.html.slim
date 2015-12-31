@@ -1,0 +1,31 @@
+/table.table.table-bordered.table-hover
+  thead
+    tr
+      th #
+      th Attribut
+      th Wert
+  tbody
+    - @lab.attributes.each do |attr|
+      tr
+        td
+          strong Lab
+        td = attr[0]
+        td = attr[1]
+
+    - @sos.attributes.each do |attr|
+      tr
+        td
+          strong Sos
+        td = attr[0]
+        td = attr[1]
+
+    - @stg.attributes.each do |attr|
+      tr
+        td
+          strong Stg
+        td = attr[0]
+        td = attr[1]
+
+
+= column_chart(@sos)
+= pie_chart(@sos )
