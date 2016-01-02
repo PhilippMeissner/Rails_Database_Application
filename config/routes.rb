@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
-  match '*path' => 'static#home', via: [:get, :post]
+  get 'get_data' => 'static#get_data', defaults: {format: :json}
   root 'static#home'
 end
