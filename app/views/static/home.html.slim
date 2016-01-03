@@ -1,31 +1,27 @@
-/table.table.table-bordered.table-hover
+h1 Fachbereiche:
+table.table.table-bordered.table-hover
   thead
     tr
-      th #
-      th Attribut
-      th Wert
+      th Fachbereich-Kürzel
+      th Anzahl Studenten
+      th Fachbereich
   tbody
-    - @lab.attributes.each do |attr|
+    - @fbs.each.with_index do |fb, i|
       tr
-        td
-          strong Lab
-        td = attr[0]
-        td = attr[1]
+        td = fb[0]
+        td = fb[1]
+        td = @fbs_arr[i]
+    tr
+      td
+        strong Total
+      td colspan="2"
+        strong= @total
 
-    - @sos.attributes.each do |attr|
-      tr
-        td
-          strong Sos
-        td = attr[0]
-        td = attr[1]
-
-    - @stg.attributes.each do |attr|
-      tr
-        td
-          strong Stg
-        td = attr[0]
-        td = attr[1]
-
+hr
+= column_chart(@fbs, {library: {hAxis: {title: "Fachbereich"}, vAxis: {title: "Studenten"}}})
+hr
+= pie_chart(@fbs)
+hr
 h1 Chartkick:
 span Merged after 25
 = column_chart(@sos, {library: {hAxis: {title: "Semester"}, vAxis: {title: "Studenten"}}})
@@ -112,7 +108,7 @@ javascript:
   }
 
   var root_ = null;
-  d3.json("/get_data", function(error, root) {
+  d3.json("/get_data_third", function(error, root) {
     if (error) return console.warn(error);
     // Compute the initial layout on the entire tree to sum sizes.
     // Also compute the full name and fill color for each node,
