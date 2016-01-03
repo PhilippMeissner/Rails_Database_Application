@@ -66,3 +66,5 @@ gem 'rmagick'
 gem 'eventmachine', github: "eventmachine/eventmachine"
 gem "chartkick"
 gem "d3-rails"
+gem 'rack-mini-profiler'
+
