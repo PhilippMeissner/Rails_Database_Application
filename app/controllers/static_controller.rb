@@ -9,13 +9,18 @@ class StaticController < ApplicationController
     # => "11"
     #
 
+    @nb = Lab.where(pstatus: 'NB', :pdatum => 1.years.ago..Date.today).group(:pdatum, :pnr).limit(20).count
+    #@nb = Lab.where(pstatus: 'NB', :pdatum => 1.years.ago..Date.today).group(:pdatum, :stg).limit(10).count
+    @nb.delete_if { |key, value| value.blank? || key.blank? }
+
     @fbs = Sos.group(:wahlfb).order("wahlfb").count
     @fbs_arr = ["Medien", "Bauwesen", "Agrarwirtschaft", "Sozis", "IuE", "Wirtschaft", "Maschinenwesen", "Studienkolleg"]
     @total = Sos.count
 
     start = Sos.order(:hssem).group(:hssem).limit(25).count
     rest = Sos.select(:hssem).offset(25).count
-    @sos = start.merge({"Sonstige" => rest})
+    @sos = start
+    #@sos = start.merge({"Sonstige" => rest})
     #Sos.order(:hssem).select(:hssem).offset(15).count
     #=> {1 => 1000, 2 => 1500, 3 => 491, ... }
     #@sos[1] ==> 1000
@@ -105,26 +110,26 @@ class StaticController < ApplicationController
             {
              "name": "IuE - STG1",
              "children": [
-              {"name": "Modul 1", "size": 3938},
-              {"name": "Modul 2", "size": 3812},
-              {"name": "Modul 3", "size": 6714},
-              {"name": "Modul 4", "size": 743}
+              {"name": "Semester 1", "size": 3938},
+              {"name": "Semester 2", "size": 3812},
+              {"name": "Semester 3", "size": 6714},
+              {"name": "Semester 4", "size": 743}
              ]
             },
             {
              "name": "IuE - STG2",
              "children": [
-              {"name": "Modul 1", "size": 3534},
-              {"name": "Modul 2", "size": 5731},
-              {"name": "Modul 3", "size": 7840},
-              {"name": "Modul 4", "size": 5914},
-              {"name": "Modul 5", "size": 3416}
+              {"name": "Semester 1", "size": 3534},
+              {"name": "Semester 2", "size": 5731},
+              {"name": "Semester 3", "size": 7840},
+              {"name": "Semester 4", "size": 5914},
+              {"name": "Semester 5", "size": 3416}
              ]
             },
             {
               "name": "IuE - STG3",
               "children": [
-                {"name": "Modul1", "size": 1995}]
+                {"name": "Semester1", "size": 1995}]
             }
            ]
           },
@@ -189,3 +194,4 @@ class StaticController < ApplicationController
     end
   end
 end
+
